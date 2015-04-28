@@ -2506,6 +2506,20 @@
 		defaults : helpers.merge(defaultConfig,{percentageInnerCutout : 0})
 	});
 
+	Chart.types.Doughnut.extend({
+    name : "CustomDoughnut",
+    defaults : {
+      centerText : "0%"
+    },
+    draw : function(easeDecimal){
+      Chart.types.Doughnut.prototype.draw.apply(this, arguments);
+      this.chart.ctx.font = "46px";
+      this.chart.ctx.textAlign = "center";
+      this.chart.ctx.textBaseline = "middle";
+      this.chart.ctx.fillText(this.options.centerText, this.chart.width/2, this.chart.height/2);
+    }
+  });
+
 }).call(this);
 (function(){
 	"use strict";
@@ -3079,7 +3093,7 @@
 			helpers.each(this.segments,function(segment){
 				segment.save();
 			});
-			
+
 			this.reflow();
 			this.render();
 		},
